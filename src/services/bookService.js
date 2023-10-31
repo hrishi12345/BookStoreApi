@@ -11,6 +11,7 @@ class BookService {
     async createBookService(data) {
         try {
             // Check if a book with the same title already exists.
+            console.log(data)
             const result = await this.bookRepository.findBy({ title: data.title });
             if (result) {
                 return {

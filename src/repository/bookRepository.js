@@ -71,7 +71,7 @@ class BookRepository {
     async findBy(data) {
         try {
             // Attempt to find a book based on the provided data criteria.
-            const response = await Books.findOne({title:data});
+            const response = await Books.findOne({title:data.title});
             return response;
         } catch (error) {
             // Handle any errors and log an error message.
