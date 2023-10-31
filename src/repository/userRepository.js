@@ -1,84 +1,64 @@
-import Books from "../models/bookModel.js";
+import User from "../models/userModel.js";
 
-// The BookRepository class handles interactions with the database (MongoDB) for book-related operations.
-class BookRepository {
-    // Create a new book.
-    async createBook(data) {
-        try {
-            // Attempt to create a new book using the provided data.
-            const result = await Books.create(data);
-            return result;
-        } catch (error) {
-            // Handle any errors and log an error message.
-            console.log("Something went wrong in the repository (createBook)");
+class UserRepository{
+   
+   async createUser(data){
+    try {
+        const result=await User.create(data)
+        return result
+    } catch (error) {
+        console.log("Something went wrong repo");
             throw error;
-        }
     }
-
-    // Delete a book by ID.
-    async deleteBook(id) {
-        try {
-            // Attempt to find and delete a book by its ID.
-            const result = await Books.findByIdAndDelete(id);
-            return result;
-        } catch (error) {
-            // Handle any errors and log an error message.
-            console.log("Something went wrong in the repository (deleteBook)");
-            throw error;
-        }
-    }
-
-    // Update a book by ID with new data.
-    async updateBook(id, data) {
-        try {
-            // Attempt to find and update a book with the provided data.
-            const result = await Books.findByIdAndUpdate(id, data, { new: true });
-            return result;
-        } catch (error) {
-            // Handle any errors and log an error message.
-            console.log("Something went wrong in the repository (updateBook)");
-            throw error;
-        }
-    }
-
-    // Get a book by ID.
-    async getBook(id) {
-        try {
-            // Attempt to find a book by its ID.
-            const result = await Books.findById(id);
-            return result;
-        } catch (error) {
-            // Handle any errors and log an error message.
-            console.log("Something went wrong in the repository (getBook)");
-            throw error;
-        }
-    }
-
-    // Get all books.
-    async getAllBooks() {
-        try {
-            // Retrieve all books from the database.
-            const result = await Books.find();
-            return result;
-        } catch (error) {
-            // Handle any errors and log an error message.
-            console.log("Something went wrong in the repository (getAllBooks)");
-            throw error;
-        }
-    }
-
-    // Find a book based on specific data criteria.
-    async findBy(data) {
-        try {
-            // Attempt to find a book based on the provided data criteria.
-            const response = await Books.findOne(data);
-            return response;
-        } catch (error) {
-            // Handle any errors and log an error message.
-            console.log("Something went wrong in the repository (findBy)");
-            throw error;
-        }
+   }
+   async destroy(id) {
+    try {
+        const result = await User.findByIdAndDelete(id);
+        return result;
+    } catch (error) {
+        console.log("Something went wrong in crud repo");
+        throw error;
     }
 }
 
-export default BookRepository;
+async get(id) {
+    try {
+        const result = await User.findById(id);
+        return result;
+    } catch (error) {
+        console.log("Something went wrong in crud repo");
+        throw error;
+    }
+}
+
+async getAll() {
+    try {
+        const result = await User.find({});
+        return result;
+    } catch (error) {
+        console.log("Something went wrong in crud repo");
+        throw error;
+    }
+}
+
+async update(id, data) {
+    try {
+        const result = await User.findByIdAndUpdate(id, data, {new: true});
+        return result;
+    } catch(error) {
+        console.log("Something went wrong in crud repo");
+        throw error;
+    }
+}
+async findBy(data) {
+    try {
+        const response = await User.findOne({title:data});
+        return response;
+    } catch(error) {
+        throw error.message;
+    }
+}
+
+}
+
+export default UserRepository;

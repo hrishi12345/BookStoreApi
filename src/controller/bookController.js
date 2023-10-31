@@ -103,7 +103,27 @@ export const getBookController = async (req, res) => {
         });
     }
 }
-
+//Controller for getting book by title 
+export const getBookByTitleController=async (req,res)=>{
+    try {
+        const {title}=req.params
+        console.log(title)
+        const response =await bookService.getBookService(title)
+        return res.status(response.status).json({
+            message: response.message,
+            data: response.result,
+            success: response.success,
+            err: {}
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something went wrong while getting Book",
+            data: {},
+            success: false,
+            err: error.message
+        });
+    }
+}
 // Controller for getting all books
 export const getAllBooksController = async (req, res) => {
     try {
